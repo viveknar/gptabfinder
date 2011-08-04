@@ -1,3 +1,4 @@
+#!/usr/bin/php -q
 <?php
 
 
@@ -21,7 +22,7 @@
 
     // connect to url 
 
-    if (!$wsql->connect('url', 'http://www.ultimate-guitar.com/search.php?type=500&order=myweight&title='.$query)){
+    if (!$wsql->connect('url', 'http://www.ultimate-guitar.com/search.php?type=500&order=myweight&&rating%5B%5D=5&rating%5B%5D=4&rating%5B%5D=3&title='.$query)){
 
         print 'Error while connecting: ' . $wsql->error;
 
@@ -32,8 +33,6 @@
     
 
     /* execute a query:
-
-       
 
        This query extracts all links from the document
 
@@ -52,9 +51,13 @@
 
 
     foreach ($wsql->fetch_array() as $row) {
-	print "Song name: ".$row['text']."\n";
-	print "guitar pro download link: ".$row['url']."\n\n"; 	
-	
+	if(preg_match('/http:\/\/www.ultimate-guitar.com\//', $row['text'])) {
+		print "link to band tabs: http://www.ultimate-guitar.com/".$row['text'];
+	}
+	else {
+		print "Song name: ".$row['text']."\n";
+		print "guitar pro download link: ".$row['url']."\n\n"; 	
+	}
     }
 
         
