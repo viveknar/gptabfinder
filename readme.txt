@@ -1,3 +1,1 @@
-To run the file execute the command:
-
-1) ./search.php <bandname> <songname>
+this is a really old project
